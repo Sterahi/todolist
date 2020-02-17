@@ -31,7 +31,7 @@ export default class TodoList extends React.Component {
     }
 
     addTodo(newTodo) {
-        newTodo['id'] = this.state.todos.length + 1
+        newTodo['id'] = this.state.todos[this.state.todos.length - 1].id + 1
         const todos = [...this.state.todos, newTodo]
         console.log(newTodo)
         if(newTodo.title !== '' && newTodo.body !== '' && newTodo.due !== '') {
@@ -53,12 +53,11 @@ export default class TodoList extends React.Component {
     }
 
     deleteTodo(removeTodo) {
-        let { todos } = this.state
-        console.log(removeTodo)
-        todos.splice(removeTodo.id, 1)
-        console.log(todos)
+        const newTodos = this.state.todos.filter(todo => {
+            return todo.id !== removeTodo
+        })
         this.setState({
-            todos: todos
+            todos: newTodos
         })
     }
 
